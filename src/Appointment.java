@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class Appointment {
     private String patientName;
-    private String doctorName;
+    private static String doctorName;
     private LocalDate appointmentDate;
     private LocalTime appointmentTime;
 
@@ -134,5 +134,41 @@ public static List<Appointment> readFromFile(String filename) {
     }
     return appointments;
 }
+
+public static List<Appointment> getAppointmentsByPatientName(String patientName) {
+    List<Appointment> appointments = readFromFile("Appointments.txt");
+    List<Appointment> appointmentsByPatient = new ArrayList<>();
+
+    for (Appointment appointment : appointments) {
+        if (appointment.getPatientName().equalsIgnoreCase(patientName)) {
+            appointmentsByPatient.add(appointment);
+        }
+    }
+
+    return appointmentsByPatient;
+}
+
+public static List<Appointment> getAppointmentsByDoctorName(String patientName) {
+    List<Appointment> appointments = readFromFile("Appointments.txt");
+    List<Appointment> appointmentsByDoctor = new ArrayList<>();
+
+    for (Appointment appointment : appointments) {
+        if (appointment.getDoctorName().equalsIgnoreCase(doctorName)) {
+            appointmentsByDoctor.add(appointment);
+        }
+    }
+
+    return appointmentsByDoctor;
+}
+
+    // Getter for patientName
+    public String getPatientName() {
+        return patientName;
+    }
+
+    // Getter for patientName
+    public String getDoctorName() {
+        return doctorName;
+    }
 
 }

@@ -152,6 +152,43 @@ public class Treatments {
         return treatments;
     }
     
+    // Method to get treatments by patient name
+    public static List<Treatments> getTreatmentsByPatientName(String patientName) {
+        List<Treatments> treatments = readFromFile("Treatments.txt");
+        List<Treatments> treatmentsByPatient = new ArrayList<>();
+
+        for (Treatments treatment : treatments) {
+            if (treatment.getPatientName().equalsIgnoreCase(patientName)) {
+                treatmentsByPatient.add(treatment);
+            }
+        }
+
+        return treatmentsByPatient;
+    }
+    
+    // Method to get treatments by doctor name
+    public static List<Treatments> getTreatmentsByDoctorName(String doctorName) {
+        List<Treatments> treatments = readFromFile("Treatments.txt");
+        List<Treatments> treatmentsByDoctor = new ArrayList<>();
+
+        for (Treatments treatment : treatments) {
+            if (treatment.getDoctorName().equalsIgnoreCase(doctorName)) {
+                treatmentsByDoctor.add(treatment);
+            }
+        }
+
+        return treatmentsByDoctor;
+    }
+
+    // Getter for patientName
+    public String getPatientName() {
+        return patientName;
+    }
+
+    // Getter for patientName
+    public String getDoctorName() {
+        return doctorName;
+    }
     
     
 }
