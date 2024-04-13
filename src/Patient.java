@@ -82,6 +82,14 @@ public class Patient extends Person {
         System.out.println(newPatient.toString());
     }
 
+    public static void displayAllPatients() {
+        System.out.println("\nDisplaying all patients...");
+        List<Patient> patients = Patient.readFromFile("Patients.txt");
+        for (Patient patient : patients) {
+            System.out.println(patient.toString());
+        }
+    }
+
     // Method to read list of patients from a file
     public static List<Patient> readFromFile(String filename) {
         List<Patient> patients = new ArrayList<>();

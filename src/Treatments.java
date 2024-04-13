@@ -122,6 +122,14 @@ public class Treatments {
         }
     }
 
+    public static void displayAllTreatments() {
+        System.out.println("\nDisplaying all treatments...");
+        List<Treatments> treatments = Treatments.readFromFile("Treatments.txt");
+        for (Treatments treatment : treatments) {
+            System.out.println(treatment.toString());
+        }
+    }
+
     // Method to read list of treatments from a file
     public static List<Treatments> readFromFile(String filename) {
         List<Treatments> treatments = new ArrayList<>();

@@ -1,6 +1,4 @@
 import java.util.*;
-import java.io.*;
-import java.time.*;
 
 public class Main {
 
@@ -71,7 +69,7 @@ public class Main {
                     Doctor.registerNewDoctor(scanner);
                     break;
                 case 4:
-                    displayAllAppointments();
+                    Appointment.displayAllAppointments();
                     break;
                 case 5:
                     exitReception = true;
@@ -106,13 +104,13 @@ public class Main {
                 Treatments.createNewTreatment(scanner);
                     break;
                 case 2:
-                    displayAllPatients();
+                    Patient.displayAllPatients();
                     break;
                 case 3:
-                    displayAllDoctors();
+                    Doctor.displayAllDoctors();
                     break;
                 case 4:
-                    displayAllTreatments();
+                    Treatments.displayAllTreatments();
                     break;
                 case 5:
                     exitDoctor = true;
@@ -124,37 +122,11 @@ public class Main {
         }
     }
 
-    private static void displayAllPatients() {
-        System.out.println("\nDisplaying all patients...");
-        List<Patient> patients = Patient.readFromFile("Patients.txt");
-        for (Patient patient : patients) {
-            System.out.println(patient.toString());
-        }
-    }
 
-    private static void displayAllDoctors() {
-        System.out.println("\nDisplaying all doctors...");
-        List<Doctor> doctors = Doctor.readFromFile("Doctors.txt");
-        for (Doctor doctor : doctors) {
-            System.out.println(doctor.toString());
-        }
-    }
 
-    private static void displayAllAppointments() {
-        System.out.println("\nDisplaying all appointments...");
-        List<Appointment> appointments = Appointment.readFromFile("Appointments.txt");
-        for (Appointment appointment : appointments) {
-            System.out.println(appointment.toString());
-        }
-    }
 
-    public static void displayAllTreatments() {
-        System.out.println("\nDisplaying all treatments...");
-        List<Treatments> treatments = Treatments.readFromFile("Treatments.txt");
-        for (Treatments treatment : treatments) {
-            System.out.println(treatment.toString());
-        }
-    }
+
+
     
 
 }

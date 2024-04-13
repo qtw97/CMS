@@ -78,6 +78,15 @@ public class Doctor extends Person {
         System.out.println(newDoctor.toString());
     }
 
+    
+    public static void displayAllDoctors() {
+        System.out.println("\nDisplaying all doctors...");
+        List<Doctor> doctors = Doctor.readFromFile("Doctors.txt");
+        for (Doctor doctor : doctors) {
+            System.out.println(doctor.toString());
+        }
+    }
+
     // Method to read list of doctors from a file
     public static List<Doctor> readFromFile(String filename) {
         List<Doctor> doctors = new ArrayList<>();

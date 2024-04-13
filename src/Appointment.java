@@ -4,6 +4,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Appointment {
     private String patientName;
@@ -45,6 +46,71 @@ public class Appointment {
             System.out.println("Error saving appointment information: " + e.getMessage());
         }
     }    
+
+        public static void createNewAppointment(Scanner scanner) {
+        // Display list of patients to choose from
+        System.out.println("\nCreating a new appointment...");
+        List<Patient> patients = Patient.readFromFile("Patients.txt");
+        List<Doctor> doctors = Doctor.readFromFile("Doctors.txt");
+
+        // Display patient names for selection
+        System.out.println("Select a patient:");
+        for (int i = 0; i < patients.size(); i++) {
+            System.out.println((i + 1) + ". " + patients.get(i).getFullName());
+        }
+
+        // Get user input for patient selection
+        System.out.print("Enter patient number: ");
+        int patientIndex = scanner.nextInt();
+        scanner.nextLine(); // Consume newline
+
+        if (patientIndex < 1 || patientIndex > patients.size()) {
+            System.out.println("Invalid patient selection.");
+            return;
+        }
+
+        Patient selectedPatient = patients.get(patientIndex - 1);
+
+        // Display doctor names for selection
+        System.out.println("\nSelect a doctor:");
+        for (int i = 0; i < doctors.size(); i++) {
+            System.out.println((i + 1) + ". " + doctors.get(i).getFullName());
+        }
+
+        // Get user input for doctor selection
+        System.out.print("Enter doctor number: ");
+        int doctorIndex = scanner.nextInt();
+        scanner.nextLine(); // Consume newline
+
+        if (doctorIndex < 1 || doctorIndex > doctors.size()) {
+            System.out.println("Invalid doctor selection.");
+            return;
+        }
+
+        Doctor selectedDoctor = doctors.get(doctorIndex - 1);
+
+        // Gather information for the new appointment
+        System.out.print("Enter appointment date (YYYY-MM-DD): ");
+        String appointmentDateString = scanner.nextLine();
+        LocalDate appointmentDate = LocalDate.parse(appointmentDateString);
+
+        System.out.print("Enter appointment time (HH:MM): ");
+        String appointmentTimeString = scanner.nextLine();
+        LocalTime appointmentTime = LocalTime.parse(appointmentTimeString);
+
+        // Create a new Appointment object and save it to file
+        Appointment appointment = new Appointment(selectedPatient.getFullName(), selectedDoctor.getFullName(),
+                appointmentDate, appointmentTime);
+        appointment.saveToFile();
+    }
+
+    public static void displayAllAppointments() {
+        System.out.println("\nDisplaying all appointments...");
+        List<Appointment> appointments = Appointment.readFromFile("Appointments.txt");
+        for (Appointment appointment : appointments) {
+            System.out.println(appointment.toString());
+        }
+    }
 
     // Method to read list of appointments from a file
 public static List<Appointment> readFromFile(String filename) {
