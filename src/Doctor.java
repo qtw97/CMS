@@ -1,3 +1,6 @@
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class Doctor extends Person {
     private String employedDate;
     private String specialty;
@@ -22,6 +25,17 @@ public class Doctor extends Person {
     
     public void setSpecialty(String specialty) {
         this.specialty = specialty;
+    }
+
+    // Method to save doctor information to a file
+    public void saveToFile() {
+        try {
+            FileWriter writer = new FileWriter("Doctors.txt", true);
+            writer.write(toString() + "\n");
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Error saving doctor information to file: " + e.getMessage());
+        }
     }
 
     @Override

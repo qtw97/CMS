@@ -1,3 +1,5 @@
+import java.io.*;
+
 public class Patient extends Person {
     private String work;
     private String insurance;
@@ -33,5 +35,21 @@ public class Patient extends Person {
                 ", employer='" + work + '\'' +
                 ", insuranceCompany='" + insurance + '\'' +
                 '}';
+    }
+
+    // Method to save patient information to a text file
+    public void saveToFile() {
+        try {
+            FileWriter fileWriter = new FileWriter("Patients.txt", true);
+            PrintWriter printWriter = new PrintWriter(fileWriter);
+
+            // Write patient details to the file
+            printWriter.println(getFullName() + "," + getDateOfBirth() + "," + work + "," + insurance);
+
+            printWriter.close();
+            fileWriter.close();
+        } catch (IOException e) {
+            System.out.println("Error saving patient information: " + e.getMessage());
+        }
     }
 }

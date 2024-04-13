@@ -1,4 +1,5 @@
-import java.util.Scanner;
+import java.util.*;
+import java.io.*;
 
 public class Main {
 
@@ -42,20 +43,21 @@ public class Main {
 
     private static void receptionMenu(Scanner scanner) {
         boolean exitReception = false;
-
+    
         while (!exitReception) {
             // Display reception menu options
             System.out.println("\nRECEPTION MENU");
             System.out.println("Choose one of the following options (enter a number):");
             System.out.println("1. Create new appointment");
             System.out.println("2. Register new patient");
-            System.out.println("3. Main menu");
-
+            System.out.println("3. Register new doctor");
+            System.out.println("4. Main menu");
+    
             // Get user input for reception menu option
             System.out.print("Enter your choice: ");
             int choice = scanner.nextInt();
             scanner.nextLine(); // Consume newline
-
+    
             switch (choice) {
                 case 1:
                     createNewAppointment(scanner);
@@ -64,6 +66,9 @@ public class Main {
                     registerNewPatient(scanner);
                     break;
                 case 3:
+                    registerNewDoctor(scanner);
+                    break;
+                case 4:
                     exitReception = true;
                     break;
                 default:
@@ -72,6 +77,7 @@ public class Main {
             }
         }
     }
+    
 
     private static void doctorMenu(Scanner scanner) {
         boolean exitDoctor = false;
@@ -107,18 +113,87 @@ public class Main {
     }
 
     private static void createNewAppointment(Scanner scanner) {
-        // Placeholder method for creating a new appointment
+        // Gather information for the new appointment
         System.out.println("\nCreating a new appointment...");
-        // Add actual logic to create appointment here
+    
+        System.out.print("Enter patient's name: ");
+        String patientName = scanner.nextLine();
+    
+        System.out.print("Enter doctor's name: ");
+        String doctorName = scanner.nextLine();
+    
+        System.out.print("Enter appointment date (YYYY-MM-DD): ");
+        String appointmentDate = scanner.nextLine();
+    
+        System.out.print("Enter appointment time (HH:MM): ");
+        String appointmentTime = scanner.nextLine();
+    
+        // Add logic to save the appointment or perform any other necessary actions
+        // For demonstration, we'll just print the details
         System.out.println("Appointment created successfully!");
+        System.out.println("Patient: " + patientName);
+        System.out.println("Doctor: " + doctorName);
+        System.out.println("Date: " + appointmentDate);
+        System.out.println("Time: " + appointmentTime);
     }
+    
 
     private static void registerNewPatient(Scanner scanner) {
-        // Placeholder method for registering a new patient
+        // Gather information for the new patient
         System.out.println("\nRegistering a new patient...");
-        // Add actual logic to register patient here
+    
+        System.out.print("Enter patient's first name: ");
+        String firstName = scanner.nextLine();
+    
+        System.out.print("Enter patient's last name: ");
+        String lastName = scanner.nextLine();
+    
+        System.out.print("Enter patient's date of birth (YYYY-MM-DD): ");
+        String dateOfBirth = scanner.nextLine();
+    
+        System.out.print("Enter patient's employer: ");
+        String employer = scanner.nextLine();
+    
+        System.out.print("Enter patient's insurance company: ");
+        String insuranceCompany = scanner.nextLine();
+    
+        // Create a new Patient object with the provided information
+        Patient newPatient = new Patient(firstName, lastName, dateOfBirth, employer, insuranceCompany);
+        newPatient.saveToFile();
+              
         System.out.println("Patient registered successfully!");
+        System.out.println(newPatient.toString());
     }
+      
+    private static void registerNewDoctor(Scanner scanner) {
+        // Gather information for the new doctor
+        System.out.println("\nAdding a new doctor...");
+        
+        System.out.print("Enter doctor's first name: ");
+        String firstName = scanner.nextLine();
+        
+        System.out.print("Enter doctor's last name: ");
+        String lastName = scanner.nextLine();
+        
+        System.out.print("Enter doctor's date of birth (YYYY-MM-DD): ");
+        String dateOfBirth = scanner.nextLine();
+        
+        System.out.print("Enter doctor's employed date (YYYY-MM-DD): ");
+        String employedDate = scanner.nextLine();
+        
+        System.out.print("Enter doctor's specialty: ");
+        String specialty = scanner.nextLine();
+        
+        // Create a new Doctor object with the provided information
+        Doctor newDoctor = new Doctor(firstName, lastName, dateOfBirth, employedDate, specialty);
+        
+        // Save doctor information to a text file
+        newDoctor.saveToFile();
+        
+        System.out.println("Doctor added successfully!");
+        System.out.println(newDoctor.toString());
+    }
+    
 
     private static void createNewTreatment(Scanner scanner) {
         // Display list of patients to choose from
@@ -162,9 +237,16 @@ public class Main {
     }
 
     private static void displayAllPatients() {
-        // Placeholder method for displaying all patients
         System.out.println("\nDisplaying all patients...");
-        // Add actual logic to display all patients here
-        System.out.println("Patients displayed successfully!");
+    
+        try (BufferedReader reader = new BufferedReader(new FileReader("Patients.txt"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred while reading the patient file: " + e.getMessage());
+        }
     }
+    
 }
