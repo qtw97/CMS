@@ -137,18 +137,21 @@ public class Treatments {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
-                if (parts.length == 4) {
-                    String doctorName = parts[0].substring(parts[0].indexOf(":") + 2).trim();
-                    String patientName = parts[1].substring(parts[1].indexOf(":") + 2).trim();
-                    String medication = parts[2].substring(parts[2].indexOf(":") + 2).trim();
-                    String description = parts[3].substring(parts[3].indexOf(":") + 2).trim();
+               
+                    String doctorName = parts[0];
+                    String patientName = parts[4];
+                    String medication = parts[8];
+                    String description = parts[9];
                     Treatments treatment = new Treatments(doctorName, patientName, medication, description);
                     treatments.add(treatment);
-                }
+                
             }
         } catch (IOException e) {
             System.out.println("Error reading treatment information from file: " + e.getMessage());
         }
         return treatments;
     }
+    
+    
+    
 }

@@ -101,7 +101,7 @@ public class Main {
 
             switch (choice) {
                 case 1:
-                Treatments.createNewTreatment(scanner);
+                    Treatments.createNewTreatment(scanner);
                     break;
                 case 2:
                     Patient.displayAllPatients();
@@ -121,12 +121,5 @@ public class Main {
             }
         }
     }
-
-
-
-
-
-
-    
 
 }

@@ -47,6 +47,7 @@ public class Appointment {
         }
     }    
 
+    // Method to create a new appointment
         public static void createNewAppointment(Scanner scanner) {
         // Display list of patients to choose from
         System.out.println("\nCreating a new appointment...");
