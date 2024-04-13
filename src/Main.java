@@ -68,16 +68,16 @@ public class Main {
                     break;
 
                 case 2:
-                    Patient.displayAllPatients();
-                    break;
-                case 3:
-                    Doctor.displayAllDoctors();
-                    break;
-                case 4:
                     Patient.registerNewPatient(scanner);
                     break;
-                case 5:
+                case 3:
                     Doctor.registerNewDoctor(scanner);
+                    break;
+                case 4:
+                    Patient.displayAllPatients();
+                    break;
+                case 5:
+                    Doctor.displayAllDoctors();
                     break;
                 case 6:
                     Appointment.displayAllAppointments();
