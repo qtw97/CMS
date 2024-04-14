@@ -23,6 +23,10 @@ public class Doctor extends Person {
         return specialty;
     }
 
+    public void setSpecialty(String specialty) {
+        this.specialty = specialty;
+    }
+
     @Override
     public String toString() {
         return "Doctor{" +
@@ -109,6 +113,53 @@ public class Doctor extends Person {
             System.out.println("Error reading doctor information from file: " + e.getMessage());
         }
         return doctors;
+    }
+
+     // Method to modify an existing doctor
+     public static void modifyDoctor(String doctorFullName, String employedDate, String specialty) {
+        List<Doctor> allDoctors = readFromFile("Doctors.txt");
+        for (Doctor doctor : allDoctors) {
+            if (doctor.getFullName().equalsIgnoreCase(doctorFullName)) {
+                doctor.setEmployedDate(employedDate);
+                doctor.setSpecialty(specialty);
+                updateDoctorsInFile(allDoctors);
+                System.out.println("Doctor information updated successfully.");
+                return;
+            }
+        }
+        System.out.println("Doctor not found.");
+    }
+
+    // Method to delete an existing doctor
+    public static void deleteDoctor(String doctorFullName) {
+        List<Doctor> allDoctors = readFromFile("Doctors.txt");
+        Iterator<Doctor> iterator = allDoctors.iterator();
+        while (iterator.hasNext()) {
+            Doctor doctor = iterator.next();
+            if (doctor.getFullName().equalsIgnoreCase(doctorFullName)) {
+                iterator.remove();
+                updateDoctorsInFile(allDoctors);
+                System.out.println("Doctor deleted successfully.");
+                return;
+            }
+        }
+        System.out.println("Doctor not found.");
+    }
+
+    // Method to update doctor information in file
+    private static void updateDoctorsInFile(List<Doctor> doctors) {
+        try {
+            FileWriter fileWriter = new FileWriter("Doctors.txt");
+            PrintWriter printWriter = new PrintWriter(fileWriter);
+            for (Doctor doctor : doctors) {
+                printWriter.println(doctor.getFullName() + "," + doctor.getDateOfBirth() + "," +
+                        doctor.getEmployedDate() + "," + doctor.getSpecialty());
+            }
+            printWriter.close();
+            fileWriter.close();
+        } catch (IOException e) {
+            System.out.println("Error updating doctor information: " + e.getMessage());
+        }
     }
 
 }

@@ -113,4 +113,56 @@ public class Patient extends Person {
         }
         return patients;
     }
+
+        // Method to modify an existing patient
+        public static void modifyPatient(String patientFullName, String attributeToModify, String newValue) {
+            List<Patient> allPatients = readFromFile("Patients.txt");
+            for (Patient patient : allPatients) {
+                if (patient.getFullName().equalsIgnoreCase(patientFullName)) {
+                    if (attributeToModify.equalsIgnoreCase("birthdate")) {
+                        patient.setDateOfBirth(newValue);
+                    } else if (attributeToModify.equalsIgnoreCase("work")) {
+                        patient.setEmployer(newValue);
+                    } else if (attributeToModify.equalsIgnoreCase("insurance")) {
+                        patient.setInsuranceCompany(newValue);
+                    }
+                    updatePatientsInFile(allPatients);
+                    System.out.println("Patient information updated successfully.");
+                    return;
+                }
+            }
+            System.out.println("Patient not found.");
+        }
+    
+        // Method to delete an existing patient
+        public static void deletePatient(String patientFullName) {
+            List<Patient> allPatients = readFromFile("Patients.txt");
+            Iterator<Patient> iterator = allPatients.iterator();
+            while (iterator.hasNext()) {
+                Patient patient = iterator.next();
+                if (patient.getFullName().equalsIgnoreCase(patientFullName)) {
+                    iterator.remove();
+                    updatePatientsInFile(allPatients);
+                    System.out.println("Patient deleted successfully.");
+                    return;
+                }
+            }
+            System.out.println("Patient not found.");
+        }
+    
+        // Method to update patient information in file
+        private static void updatePatientsInFile(List<Patient> patients) {
+            try {
+                FileWriter fileWriter = new FileWriter("Patients.txt");
+                PrintWriter printWriter = new PrintWriter(fileWriter);
+                for (Patient patient : patients) {
+                    printWriter.println(patient.getFullName() + "," + patient.getDateOfBirth() + "," +
+                            patient.getEmployer() + "," + patient.getInsuranceCompany());
+                }
+                printWriter.close();
+                fileWriter.close();
+            } catch (IOException e) {
+                System.out.println("Error updating patient information: " + e.getMessage());
+            }
+        }
 }
